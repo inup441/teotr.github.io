@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | teotr.github.io]]></title>
+  <link href="http://teotr.github.io/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://teotr.github.io/"/>
+  <updated>2013-04-16T20:37:11+09:00</updated>
+  <id>http://teotr.github.io/</id>
+  <author>
+    <name><![CDATA[teotr]]></name>
+    <email><![CDATA[mail@teotr.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[vimfiler の exrename が便利]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/19/vimfiler/"/>
+    <updated>2011-04-19T23:01:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/19/vimfiler</id>
+    <content type="html"><![CDATA[<p><img src="/images/2011-04-19-vimfiler.png"></p>
+
+<p><a href="https://github.com/Shougo/vimfiler" title="Shougo/vimfiler - GitHub">vimfiler</a>  という vim をファイラーとして使うためのプラグインがあります。</p>
+
+<p>昔 Windows ユーザーだった頃には「あふ」という2画面ファイラーを使っていたのですが、「拡張リネーム」という機能が便利でした。</p>
+
+<p>リネームしたいファイルを選択(マーク)して<code>R</code>を押すと、選択した全ファイルに対して一括でリネームを行うことができるというものです。</p>
+
+<p>例えば拡張子を変えたり、分類のための文字列を挿入するといったことが簡単に行えてとても便利でした。</p>
+
+<p>vimfiler にもそんな機能あるのかなー、と同じような操作してみたら、より便利な機能がありました。</p>
+
+<h3>ファイルを選択する</h3>
+
+<p>まず、リネームするファイルを選択します。</p>
+
+<p>個別にリネームしたいファイルにカーソルがあるときに<code>&lt;Space&gt;</code>を押すか、<code>V</code>で一気に複数行を選択してから<code>&lt;Space&gt;</code>するとマークされます。</p>
+
+<p>ファイルマスク(<code>M</code>)してから全選択(<code>*</code>)という方法もあります。</p>
+
+<h3>リネームする</h3>
+
+<p>選択した状態で<code>R</code>で拡張リネームの画面が開きます。</p>
+
+<p>この拡張リネームの画面は通常のvimの編集画面と何ら変わりありません。</p>
+
+<p>ということは、正規表現を用いた置換(<code>s/foo/bar/</code>)も使えるし、矩形選択(<code>&lt;C-v&gt;</code>)も使えるということです。</p>
+
+<p>私は正規表現が苦手なんですが、矩形選択があるおかげで割合さささとリネームできてありがたいです。</p>
+
+<h3>リネームを反映させる</h3>
+
+<p>編集が終われば通常のファイルの編集時と同じように<code>:w</code>で保存すると無事リネーム終了です。</p>
+
+<p>私はシェルなんかでさくさくリネームできる人ではないので、直感的に利用できるこの拡張リネームはとても便利。</p>
+
+<p><a href="https://github.com/Shougo/vimfiler" title="Shougo/vimfiler - GitHub">Shougo/vimfiler - GitHub</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[tabular の使い方メモ]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/15/tabular/"/>
+    <updated>2011-04-15T20:35:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/15/tabular</id>
+    <content type="html"><![CDATA[<p>vimではプラグインを利用することによってコードの整形を簡単に行うことができます。</p>
+
+<p>整形のためのプラグインはいくつかあると思いますが、私は tabular というプラグインを利用しています。</p>
+
+<p>ただ、よく利用するわりには基本のコマンドしか使えてなかったので、この辺りで使い方をメモしておいてもっと柔軟に整形していこうという趣旨のエントリーです。</p>
+
+<h2>例文</h2>
+
+<pre><code>Some short phrase,some other phrase
+A much longer phrase here,and another long phrase
+</code></pre>
+
+<h2>基本</h2>
+
+<h3>:Tabularize /,</h3>
+
+<p>スラッシュに続けて区切り文字(この場合は「,」)を指定すると、複数行を揃えてくれます。</p>
+
+<pre><code>Some short phrase         , some other phrase
+A much longer phrase here , and another long phrase
+</code></pre>
+
+<h2>オプションを指定する</h2>
+
+<p>区切り文字を基準として、フィールドごとに右寄せ( r )、左寄せ( l )、中央寄せ( c )をすることができます。数字は、次のフィールドまでのスペースの数を指定します。</p>
+
+<h3>:Tabularize /,/r0</h3>
+
+<pre><code>        Some short phrase,      some other phrase
+A much longer phrase here,and another long phrase
+</code></pre>
+
+<h3>:Tabularize /,/l0</h3>
+
+<pre><code>Some short phrase        ,some other phrase
+A much longer phrase here,and another long phrase
+</code></pre>
+
+<h3>:Tabularize /,/l0c1</h3>
+
+<pre><code>Some short phrase        , some other phrase
+A much longer phrase here, and another long phrase
+</code></pre>
+
+<h2>区切り文字の位置を調整する</h2>
+
+<p><code>\zs</code>はヘルプによると</p>
+
+<blockquote><p>\zs   どこにでもマッチして、マッチの開始地点を設定します。
+このアトムの次の文字は、マッチした文字列の 1 文字目です。|/zero-width|</p></blockquote>
+
+<p>とのことです。
+よくわかってないのですが、実際にどうなるかを見るとわかりやすいと思います。</p>
+
+<h3>:Tabularize /,\zs/l1</h3>
+
+<pre><code>Some short phrase,          some other phrase
+A much longer phrase here,  and another long phrase
+</code></pre>
+
+<p>(参考)</p>
+
+<ul>
+<li><a href="https://github.com/godlygeek/tabular" title="godlygeek/tabular - GitHub">godlygeek/tabular - GitHub</a></li>
+<li><a href="http://vimcasts.org/episodes/aligning-text-with-tabular-vim/" title="Aligning text with Tabular.vim">Aligning text with Tabular.vim</a></li>
+<li>:help tabular</li>
+<li>:help \zs</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[お顔☆メーカーを vim スクリプトにしてみた]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/13/aamaker-vim/"/>
+    <updated>2011-04-13T18:17:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/13/aamaker-vim</id>
+    <content type="html"><![CDATA[<p><img src="/images/2011-04-13-aamaker-vim.png"></p>
+
+<p>amachang さんが作った<a href="http://amachang.sakura.ne.jp/misc/aamaker/" title="お顔☆メーカー - あなただけの顔文字作ります">お顔☆メーカー</a>を vim スクリプトにしてみた。</p>
+
+<p>ステータスラインに表示するようにしてみたら、カーソルが動くたびに新しい顏がめまぐるしく生成されてかわいい。</p>
+
+<p><div><script src='https://gist.github.com/5394986.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+
+<p>(参考) <a href="http://vim-users.jp/2009/11/hack98/" title="Vim-users.jp - Hack #98: VimScriptで疑似乱数を生成する">Vim-users.jp - Hack #98: VimScriptで疑似乱数を生成する</a></p>
+]]></content>
+  </entry>
+  
+</feed>

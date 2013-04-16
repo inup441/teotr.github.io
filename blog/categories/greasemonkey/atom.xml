@@ -4,7 +4,7 @@
   <title><![CDATA[Category: greasemonkey | teotr.github.io]]></title>
   <link href="http://teotr.github.io/blog/categories/greasemonkey/atom.xml" rel="self"/>
   <link href="http://teotr.github.io/"/>
-  <updated>2013-04-16T18:57:33+09:00</updated>
+  <updated>2013-04-16T20:37:11+09:00</updated>
   <id>http://teotr.github.io/</id>
   <author>
     <name><![CDATA[teotr]]></name>
@@ -69,6 +69,229 @@
   return
 )()</code></pre></noscript></div>
 </p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[私家版 はてなキーワードへのリンクを無効にする Greasemonkey スクリプト]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/11/disable-hatena-keyword/"/>
+    <updated>2011-04-11T07:20:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/11/disable-hatena-keyword</id>
+    <content type="html"><![CDATA[<p>Evernote にメモしたいページがあった場合、いったん Instapaper で表示させてから Evernote にポストしてたのだけど、はてなキーワードが不要だったのでリンクを除去する Greasemonkey スクリプトを書きました。</p>
+
+<p><a href="http://hatenagreasemonkey.g.hatena.ne.jp/keyword/%E3%81%AF%E3%81%A6%E3%81%AA%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89%E3%83%AA%E3%83%B3%E3%82%AF%E7%84%A1%E5%8A%B9%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88" title="はてなキーワードリンク無効スクリプト - はてなグリースモンキー">こちら</a>ではてなの公式のものが公開されてるのですが、リンクが切れてるみたいです。。</p>
+
+<p>さらっと調べてみたところ、元々のスクリプトは除去するaタグの class を判定に使っていたみたいなんだけど、Instapaper で表示させた時点で class の情報は付加されていないのでこの方法は使えない。</p>
+
+<p>なので href の URL にはてなキーワードへのリンクが含まれていたら除去する、という風にしてみました。</p>
+
+<p>Instapaper 以外のページでも使えるけど、はてなキーワードへのリンクが問答無用で除去されるのでちゅうい。</p>
+
+<p><div><script src='https://gist.github.com/5395027.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ハローワークインターネットサービスをより便利に使える greasemokey スクリプト書いた]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/09/hellowork-greasemonkey/"/>
+    <updated>2011-04-09T21:12:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/09/hellowork-greasemonkey</id>
+    <content type="html"><![CDATA[<p><img src="/images/2011-04-09-hellowork-greasemonkey.png"></p>
+
+<p>自宅にいながらにして全国の求人を見ることができて、非常に便利なことで有名なハローワークインターネットサービスですが、より便利にしたくて Greasemonkey スクリプトを書いてみました。</p>
+
+<p>機能ごとに分けたので、全部で3ファイルあるんですが、全て適用すると上の画像のような画面になります。</p>
+
+<ul>
+<li>hellowork_arrange.user.js
+
+<ul>
+<li>2カラム化による一覧性の向上</li>
+</ul>
+</li>
+<li>hellowork_highlight.user.js
+
+<ul>
+<li>キーワードによるハイライト</li>
+<li>検索したい語にリンクをはる</li>
+</ul>
+</li>
+<li>hellowork_set_criteria.user.js
+
+<ul>
+<li>検索条件を予め入力</li>
+</ul>
+</li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/5395091.js?file=hellowork_arrange.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_highlight
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/B01050.do?*
+// ==/UserScript==
+
+(function(){
+  const HIGHLIGHT = ['年齢', '仕事の内容', '必要な経験等', '必要な免許・資格'];
+  const HREF    = ['事業所名', '所在地', '電話番号'];
+  const KEYWORDS  = ['トライアル'];
+  const COLORS    = {highlight: '#FFFFA6', keyword: '#BDF271'};
+  const SEARCH    = 'http://www.google.co.jp/search?q=';
+
+  var trs = document.getElementsByTagName(&quot;tbody&quot;)[0].getElementsByTagName(&quot;tr&quot;);
+  var total = trs.length;
+
+  for (var i=0;i&lt;total;i++) {
+    var tr = trs[i];
+    var th = trs[i].getElementsByTagName(&quot;th&quot;)[0];
+    var td = trs[i].getElementsByTagName(&quot;td&quot;)[0];
+
+    for (var j in HIGHLIGHT) {
+      if (th.innerHTML.match(RegExp('^' + HIGHLIGHT[j] + '$', 'g')) != null) {
+        td.style.backgroundColor = COLORS.highlight;
+      } else if (th.innerHTML.match(RegExp('^' + HREF[j])) != null) {
+        var text = td.getElementsByTagName(&quot;div&quot;)[0].innerHTML;
+        if (text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$') != null) {
+          var address = text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$');
+          text = address[2];
+        }
+        var a = document.createElement(&quot;a&quot;);
+
+        a.href = SEARCH + encodeURI(text);
+        a.target = '_blank';
+        a.textContent = text;
+        tr.getElementsByTagName(&quot;div&quot;)[0].innerHTML = '';
+        tr.getElementsByTagName(&quot;div&quot;)[0].appendChild(a);
+      }
+    }
+
+    for (var k in KEYWORDS) {
+      if (td.innerHTML.search(KEYWORDS[k]) != -1) {
+        td.style.backgroundColor = COLORS.keyword;
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+</p>
+
+<p><div><script src='https://gist.github.com/5395091.js?file=hellowork_highlight.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_highlight
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/B01050.do?*
+// ==/UserScript==
+
+(function(){
+  const HIGHLIGHT = ['年齢', '仕事の内容', '必要な経験等', '必要な免許・資格'];
+  const HREF    = ['事業所名', '所在地', '電話番号'];
+  const KEYWORDS  = ['トライアル'];
+  const COLORS    = {highlight: '#FFFFA6', keyword: '#BDF271'};
+  const SEARCH    = 'http://www.google.co.jp/search?q=';
+
+  var trs = document.getElementsByTagName(&quot;tbody&quot;)[0].getElementsByTagName(&quot;tr&quot;);
+  var total = trs.length;
+
+  for (var i=0;i&lt;total;i++) {
+    var tr = trs[i];
+    var th = trs[i].getElementsByTagName(&quot;th&quot;)[0];
+    var td = trs[i].getElementsByTagName(&quot;td&quot;)[0];
+
+    for (var j in HIGHLIGHT) {
+      if (th.innerHTML.match(RegExp('^' + HIGHLIGHT[j] + '$', 'g')) != null) {
+        td.style.backgroundColor = COLORS.highlight;
+      } else if (th.innerHTML.match(RegExp('^' + HREF[j])) != null) {
+        var text = td.getElementsByTagName(&quot;div&quot;)[0].innerHTML;
+        if (text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$') != null) {
+          var address = text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$');
+          text = address[2];
+        }
+        var a = document.createElement(&quot;a&quot;);
+
+        a.href = SEARCH + encodeURI(text);
+        a.target = '_blank';
+        a.textContent = text;
+        tr.getElementsByTagName(&quot;div&quot;)[0].innerHTML = '';
+        tr.getElementsByTagName(&quot;div&quot;)[0].appendChild(a);
+      }
+    }
+
+    for (var k in KEYWORDS) {
+      if (td.innerHTML.search(KEYWORDS[k]) != -1) {
+        td.style.backgroundColor = COLORS.keyword;
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+</p>
+
+<p><div><script src='https://gist.github.com/5395091.js?file=hellowork_set_criteria.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_set_criteria
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/*
+// ==/UserScript==
+
+(function(){
+  const PAGE_URL = document.URL.replace('https://www.hellowork.go.jp/servicef/','');
+  const URLS = {
+    basic_criteria  : /^B01020\.do\?action=initDisp&amp;screenId=B01020|B01030$/,
+        detail_criteria : /^B01020\.do$/,
+  }
+  const CRITERIA = {
+    basic_criteria : {
+      ID_kyushokuUmu1 : true,
+            ID_kyushokuNumber1 : &quot;12345&quot;,
+            ID_kyushokuNumber2 : &quot;1234567&quot;,
+            ID_nenrei         : &quot;18&quot;,
+            ID_todofuken1     : &quot;27&quot;,     // 大阪府
+            ID_todofuken2     : &quot;30&quot;,     // 和歌山県
+            // &quot;ID_kiboShokushu&quot; : &quot;A&quot;, // 専門的・技術的職業;
+            // &quot;ID_kiboShokushu&quot; : &quot;E&quot;, // サービスの職業;
+            // &quot;ID_shinchakuKyujin1&quot; : true, // 新着求人
+    },
+      detail_criteria : {
+        ID_freeWord      : &quot;ＰＨＰ&quot;,
+            ID_freeWordRuigigo1 : true,
+            ID_kanyuHoken1    : true,
+      },
+  }
+
+  for (var page in URLS) {
+    if (PAGE_URL.match(URLS[page])) {
+      for (var id in CRITERIA[page]) {
+        var value = CRITERIA[page][id];
+        if (value == true) {
+          document.getElementById(id).checked = true;
+        } else {
+          document.getElementById(id).value = value;
+        }
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[現在使用している QuickLook プラグイン]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/05/quicklook/"/>
+    <updated>2011-04-05T22:37:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/05/quicklook</id>
+    <content type="html"><![CDATA[<ul>
+<li>flv.qlgenerator <a href="http://homepage.mac.com/xdd/software/flv/" title="flv Quick Look Plugin top">http://homepage.mac.com/xdd/software/flv/</a></li>
+<li>JapaneseText.qlgenerator <a href="http://x.nest.jp/mac/080109_0217.htm" title="Life with Mac OS X @rNote - JapaneseText.qlgenerator">http://x.nest.jp/mac/080109_0217.htm</a></li>
+<li>QLColorCode.qlgenerator <a href="http://code.google.com/p/qlcolorcode/" title="qlcolorcode - A Quick Look plugin for source code with syntax highlighting - Google Project Hosting">http://code.google.com/p/qlcolorcode/</a></li>
+</ul>
+
+
+<p><code>/Library/QuickLook</code>、または <code>~/Library/QuickLook</code> に置くと有効になる。</p>
 ]]></content>
   </entry>
   

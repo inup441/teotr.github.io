@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ハローワークインターネットサービスをより便利に使える greasemokey スクリプト書いた - teotr.github.io</title>
+  <meta name="author" content="teotr">
+
+  
+  <meta name="description" content="自宅にいながらにして全国の求人を見ることができて、非常に便利なことで有名なハローワークインターネットサービスですが、より便利にしたくて Greasemonkey スクリプトを書いてみました。 機能ごとに分けたので、全部で3ファイルあるんですが、全て適用すると上の画像のような画面になります。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://teotr.github.io/blog/2011/04/09/hellowork-greasemonkey">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="teotr.github.io" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">teotr.github.io</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:teotr.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ハローワークインターネットサービスをより便利に使える Greasemokey スクリプト書いた</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-09T21:12:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><img src="/images/2011-04-09-hellowork-greasemonkey.png"></p>
+
+<p>自宅にいながらにして全国の求人を見ることができて、非常に便利なことで有名なハローワークインターネットサービスですが、より便利にしたくて Greasemonkey スクリプトを書いてみました。</p>
+
+<p>機能ごとに分けたので、全部で3ファイルあるんですが、全て適用すると上の画像のような画面になります。</p>
+
+<ul>
+<li>hellowork_arrange.user.js
+
+<ul>
+<li>2カラム化による一覧性の向上</li>
+</ul>
+</li>
+<li>hellowork_highlight.user.js
+
+<ul>
+<li>キーワードによるハイライト</li>
+<li>検索したい語にリンクをはる</li>
+</ul>
+</li>
+<li>hellowork_set_criteria.user.js
+
+<ul>
+<li>検索条件を予め入力</li>
+</ul>
+</li>
+</ul>
+
+
+<div><script src='https://gist.github.com/5395091.js?file=hellowork_arrange.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_highlight
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/B01050.do?*
+// ==/UserScript==
+
+(function(){
+  const HIGHLIGHT = ['年齢', '仕事の内容', '必要な経験等', '必要な免許・資格'];
+  const HREF    = ['事業所名', '所在地', '電話番号'];
+  const KEYWORDS  = ['トライアル'];
+  const COLORS    = {highlight: '#FFFFA6', keyword: '#BDF271'};
+  const SEARCH    = 'http://www.google.co.jp/search?q=';
+
+  var trs = document.getElementsByTagName(&quot;tbody&quot;)[0].getElementsByTagName(&quot;tr&quot;);
+  var total = trs.length;
+
+  for (var i=0;i&lt;total;i++) {
+    var tr = trs[i];
+    var th = trs[i].getElementsByTagName(&quot;th&quot;)[0];
+    var td = trs[i].getElementsByTagName(&quot;td&quot;)[0];
+
+    for (var j in HIGHLIGHT) {
+      if (th.innerHTML.match(RegExp('^' + HIGHLIGHT[j] + '$', 'g')) != null) {
+        td.style.backgroundColor = COLORS.highlight;
+      } else if (th.innerHTML.match(RegExp('^' + HREF[j])) != null) {
+        var text = td.getElementsByTagName(&quot;div&quot;)[0].innerHTML;
+        if (text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$') != null) {
+          var address = text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$');
+          text = address[2];
+        }
+        var a = document.createElement(&quot;a&quot;);
+
+        a.href = SEARCH + encodeURI(text);
+        a.target = '_blank';
+        a.textContent = text;
+        tr.getElementsByTagName(&quot;div&quot;)[0].innerHTML = '';
+        tr.getElementsByTagName(&quot;div&quot;)[0].appendChild(a);
+      }
+    }
+
+    for (var k in KEYWORDS) {
+      if (td.innerHTML.search(KEYWORDS[k]) != -1) {
+        td.style.backgroundColor = COLORS.keyword;
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+
+
+
+
+<div><script src='https://gist.github.com/5395091.js?file=hellowork_highlight.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_highlight
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/B01050.do?*
+// ==/UserScript==
+
+(function(){
+  const HIGHLIGHT = ['年齢', '仕事の内容', '必要な経験等', '必要な免許・資格'];
+  const HREF    = ['事業所名', '所在地', '電話番号'];
+  const KEYWORDS  = ['トライアル'];
+  const COLORS    = {highlight: '#FFFFA6', keyword: '#BDF271'};
+  const SEARCH    = 'http://www.google.co.jp/search?q=';
+
+  var trs = document.getElementsByTagName(&quot;tbody&quot;)[0].getElementsByTagName(&quot;tr&quot;);
+  var total = trs.length;
+
+  for (var i=0;i&lt;total;i++) {
+    var tr = trs[i];
+    var th = trs[i].getElementsByTagName(&quot;th&quot;)[0];
+    var td = trs[i].getElementsByTagName(&quot;td&quot;)[0];
+
+    for (var j in HIGHLIGHT) {
+      if (th.innerHTML.match(RegExp('^' + HIGHLIGHT[j] + '$', 'g')) != null) {
+        td.style.backgroundColor = COLORS.highlight;
+      } else if (th.innerHTML.match(RegExp('^' + HREF[j])) != null) {
+        var text = td.getElementsByTagName(&quot;div&quot;)[0].innerHTML;
+        if (text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$') != null) {
+          var address = text.match('^(〒[0-9]{3}-[0-9]{4}&lt;br&amp;mt;)(.*)$');
+          text = address[2];
+        }
+        var a = document.createElement(&quot;a&quot;);
+
+        a.href = SEARCH + encodeURI(text);
+        a.target = '_blank';
+        a.textContent = text;
+        tr.getElementsByTagName(&quot;div&quot;)[0].innerHTML = '';
+        tr.getElementsByTagName(&quot;div&quot;)[0].appendChild(a);
+      }
+    }
+
+    for (var k in KEYWORDS) {
+      if (td.innerHTML.search(KEYWORDS[k]) != -1) {
+        td.style.backgroundColor = COLORS.keyword;
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+
+
+
+
+<div><script src='https://gist.github.com/5395091.js?file=hellowork_set_criteria.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           hellowork_set_criteria
+// @namespace     http://twitter.com/teotr
+// @include     https://www.hellowork.go.jp/servicef/*
+// ==/UserScript==
+
+(function(){
+  const PAGE_URL = document.URL.replace('https://www.hellowork.go.jp/servicef/','');
+  const URLS = {
+    basic_criteria  : /^B01020\.do\?action=initDisp&amp;screenId=B01020|B01030$/,
+        detail_criteria : /^B01020\.do$/,
+  }
+  const CRITERIA = {
+    basic_criteria : {
+      ID_kyushokuUmu1 : true,
+            ID_kyushokuNumber1 : &quot;12345&quot;,
+            ID_kyushokuNumber2 : &quot;1234567&quot;,
+            ID_nenrei         : &quot;18&quot;,
+            ID_todofuken1     : &quot;27&quot;,     // 大阪府
+            ID_todofuken2     : &quot;30&quot;,     // 和歌山県
+            // &quot;ID_kiboShokushu&quot; : &quot;A&quot;, // 専門的・技術的職業;
+            // &quot;ID_kiboShokushu&quot; : &quot;E&quot;, // サービスの職業;
+            // &quot;ID_shinchakuKyujin1&quot; : true, // 新着求人
+    },
+      detail_criteria : {
+        ID_freeWord      : &quot;ＰＨＰ&quot;,
+            ID_freeWordRuigigo1 : true,
+            ID_kanyuHoken1    : true,
+      },
+  }
+
+  for (var page in URLS) {
+    if (PAGE_URL.match(URLS[page])) {
+      for (var id in CRITERIA[page]) {
+        var value = CRITERIA[page][id];
+        if (value == true) {
+          document.getElementById(id).checked = true;
+        } else {
+          document.getElementById(id).value = value;
+        }
+      }
+    }
+  }
+})();
+</code></pre></noscript></div>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">teotr</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-09T21:12:00+09:00" pubdate data-updated="true">Apr 9<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/greasemonkey/'>greasemonkey</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://teotr.github.io/blog/2011/04/09/hellowork-greasemonkey/" data-via="teotr" data-counturl="http://teotr.github.io/blog/2011/04/09/hellowork-greasemonkey/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/04/05/quicklook/" title="Previous Post: 現在使用している QuickLook プラグイン">&laquo; 現在使用している QuickLook プラグイン</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/04/11/disable-hatena-keyword/" title="Next Post: 私家版 はてなキーワードへのリンクを無効にする Greasemonkey スクリプト">私家版 はてなキーワードへのリンクを無効にする Greasemonkey スクリプト &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2011/04/27/select-pref/">SELECT の都道府県を自動的に選択する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/19/vimfiler/">vimfiler の exrename が便利</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/15/tabular/">tabular の使い方メモ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/13/aamaker-vim/">お顔☆メーカーを vim スクリプトにしてみた</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/04/11/disable-hatena-keyword/">私家版 はてなキーワードへのリンクを無効にする Greasemonkey スクリプト</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/teotr">@teotr</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'teotr',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - teotr -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

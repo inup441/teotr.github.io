@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mac | teotr.github.io]]></title>
+  <link href="http://teotr.github.io/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://teotr.github.io/"/>
+  <updated>2013-04-16T20:37:11+09:00</updated>
+  <id>http://teotr.github.io/</id>
+  <author>
+    <name><![CDATA[teotr]]></name>
+    <email><![CDATA[mail@teotr.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Language Switcher でアプリケーションごとに使用言語を変更する]]></title>
+    <link href="http://teotr.github.io/blog/2011/04/04/language-switcher/"/>
+    <updated>2011-04-04T17:37:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2011/04/04/language-switcher</id>
+    <content type="html"><![CDATA[<p><img src="/images/2011-04-04language-switcher.png"></p>
+
+<p><a href="http://www.tj-hd.co.uk/en-gb/languageswitcher/" title="TJ-HD Software - Language Switcher">Language Switcher</a> を使うと、アプリケーションごとに使いたい言語を選ぶことができる。</p>
+
+<p>「OS の言語環境を英語にするとサクサク動く」ということで、英語環境で使っていて普段は特に不便は感じないのだけど、<a href="http://www.pixelmator.com/" title="Pixelmator">Pixelmator</a> を使うにあたってさすがに英語だとちょっともうよくわからないので、日本語で使うことにした。</p>
+
+<p>via <a href="http://bamboostudio.tank.jp/archives/1608" title="Snow Leopard でアプリを個別に言語設定するには - Bamboo Studio ＊ バンブースタジオ | Blog™">Snow Leopard でアプリを個別に言語設定するには - Bamboo Studio ＊ バンブースタジオ | Blog™</a></p>
+]]></content>
+  </entry>
+  
+</feed>
