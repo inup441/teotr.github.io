@@ -5,12 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My New Post - teotr.github.io</title>
+  <title>SELECT の都道府県を自動的に選択する - teotr.github.io</title>
   <meta name="author" content="teotr">
 
   
-  <meta name="description" content="test
-">
+  <meta name="description" content="selectから大阪を選ぶのは、中途半端な位置にあるのでちょっとめんどくさい。
+なので書いてみた。 // ==UserScript==
+// @name select-pref
+// @namespace http://twitter.com/teotr
+// @include http &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://teotr.github.io/blog/2012/04/16/test">
+  <link rel="canonical" href="http://teotr.github.io/blog/2011/04/27/select-pref">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="teotr.github.io" type="application/atom+xml">
@@ -67,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">My New Post</h1>
+      <h1 class="entry-title">SELECT の都道府県を自動的に選択する</h1>
     
     
       <p class="meta">
@@ -83,14 +86,66 @@
   
 
 
-<time datetime="2012-04-16T06:04:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time>
+<time datetime="2011-04-27T10:04:00+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>test</p>
+<div class="entry-content"><p>selectから大阪を選ぶのは、中途半端な位置にあるのでちょっとめんどくさい。
+なので書いてみた。</p>
+
+<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           select-pref
+// @namespace      http://twitter.com/teotr
+// @include        http://*
+// @include        https://*
+// ==/UserScript==
+//
+(function(){
+  var d, option, options, select, selects, _i, _j, _len, _len2;
+  d = document;
+  selects = d.getElementsByTagName('select');
+  l: for (_i = 0, _len = selects.length; _i &lt; _len; _i++) {
+    select = selects[_i];
+    if (select.hasChildNodes()) {
+      options = select.getElementsByTagName('option');
+      for (_j = 0, _len2 = options.length; _j &lt; _len2; _j++) {
+        option = options[_j];
+        if (/大阪/.test(option.innerHTML)) {
+          option.selected = true;
+          select.value = option.value;
+          break l;
+        }
+      }
+    }
+  }
+})();</code></pre></noscript></div>
+
+
+<p>ちなみに元のコードはcoffeescriptで書いた。
+ラベルをつけるとコンパイルできなかったのではずしてある。</p>
+
+<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.coffee'></script>
+<noscript><pre><code>(-&gt;
+  d = document
+  selects = d.getElementsByTagName 'select'
+
+  for select in selects
+    if select.hasChildNodes()
+      options = select.getElementsByTagName 'option'
+        for option in options
+          if /大阪/.test option.innerHTML
+            option.selected = true
+            select.value = option.value
+            break
+  return
+)()</code></pre></noscript></div>
+
+
+
 </div>
 
 
@@ -113,15 +168,21 @@
   
 
 
-<time datetime="2012-04-16T06:04:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time>
+<time datetime="2011-04-27T10:04:00+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2011</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/greasemonkey/'>greasemonkey</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://teotr.github.io/blog/2012/04/16/test/" data-via="teotr" data-counturl="http://teotr.github.io/blog/2012/04/16/test/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://teotr.github.io/blog/2011/04/27/select-pref/" data-via="teotr" data-counturl="http://teotr.github.io/blog/2011/04/27/select-pref/" >Tweet</a>
   
   
   
@@ -132,8 +193,6 @@
     
     <p class="meta">
       
-      
-        <a class="basic-alignment right" href="/blog/2013/04/16/my-new-post/" title="Next Post: My New Post">My New Post &raquo;</a>
       
     </p>
   </footer>
@@ -148,11 +207,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/04/16/my-new-post/">My New Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/04/16/test/">My New Post</a>
+        <a href="/blog/2011/04/27/select-pref/">SELECT の都道府県を自動的に選択する</a>
       </li>
     
   </ul>

@@ -9,8 +9,11 @@
   <meta name="author" content="teotr">
 
   
-  <meta name="description" content="test
-">
+  <meta name="description" content="selectから大阪を選ぶのは、中途半端な位置にあるのでちょっとめんどくさい。
+なので書いてみた。 // ==UserScript==
+// @name select-pref
+// @namespace http://twitter.com/teotr
+// @include http &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,7 +73,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/16/my-new-post/">My New Post</a></h1>
+      <h1 class="entry-title"><a href="/blog/2011/04/27/select-pref/">SELECT の都道府県を自動的に選択する</a></h1>
     
     
       <p class="meta">
@@ -86,50 +89,66 @@
   
 
 
-<time datetime="2013-04-16T06:04:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2013</time>
+<time datetime="2011-04-27T10:04:00+09:00" pubdate data-updated="true">Apr 27<span>th</span>, 2011</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>test</p>
-</div>
-  
-  
+  <div class="entry-content"><p>selectから大阪を選ぶのは、中途半端な位置にあるのでちょっとめんどくさい。
+なので書いてみた。</p>
+
+<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.js'></script>
+<noscript><pre><code>// ==UserScript==
+// @name           select-pref
+// @namespace      http://twitter.com/teotr
+// @include        http://*
+// @include        https://*
+// ==/UserScript==
+//
+(function(){
+  var d, option, options, select, selects, _i, _j, _len, _len2;
+  d = document;
+  selects = d.getElementsByTagName('select');
+  l: for (_i = 0, _len = selects.length; _i &lt; _len; _i++) {
+    select = selects[_i];
+    if (select.hasChildNodes()) {
+      options = select.getElementsByTagName('option');
+      for (_j = 0, _len2 = options.length; _j &lt; _len2; _j++) {
+        option = options[_j];
+        if (/大阪/.test(option.innerHTML)) {
+          option.selected = true;
+          select.value = option.value;
+          break l;
+        }
+      }
+    }
+  }
+})();</code></pre></noscript></div>
 
 
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/16/test/">My New Post</a></h1>
-    
-    
-      <p class="meta">
-        
+<p>ちなみに元のコードはcoffeescriptで書いた。
+ラベルをつけるとコンパイルできなかったのではずしてある。</p>
+
+<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.coffee'></script>
+<noscript><pre><code>(-&gt;
+  d = document
+  selects = d.getElementsByTagName 'select'
+
+  for select in selects
+    if select.hasChildNodes()
+      options = select.getElementsByTagName 'option'
+        for option in options
+          if /大阪/.test option.innerHTML
+            option.selected = true
+            select.value = option.value
+            break
+  return
+)()</code></pre></noscript></div>
 
 
 
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-16T06:04:00+09:00" pubdate data-updated="true">Apr 16<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>test</p>
 </div>
   
   
@@ -150,11 +169,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/04/16/my-new-post/">My New Post</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/04/16/test/">My New Post</a>
+        <a href="/blog/2011/04/27/select-pref/">SELECT の都道府県を自動的に選択する</a>
       </li>
     
   </ul>

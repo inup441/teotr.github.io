@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[teotr.github.io]]></title>
-  <link href="http://teotr.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: greasemonkey | teotr.github.io]]></title>
+  <link href="http://teotr.github.io/blog/categories/greasemonkey/atom.xml" rel="self"/>
   <link href="http://teotr.github.io/"/>
   <updated>2013-04-16T18:57:33+09:00</updated>
   <id>http://teotr.github.io/</id>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>selectから大阪を選ぶのは、中途半端な位置にあるのでちょっとめんどくさい。
 なので書いてみた。</p>
 
-<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.js'></script>
+<p><div><script src='https://gist.github.com/5394731.js?file=select-pref.user.js'></script>
 <noscript><pre><code>// ==UserScript==
 // @name           select-pref
 // @namespace      http://twitter.com/teotr
@@ -48,12 +48,12 @@
     }
   }
 })();</code></pre></noscript></div>
-
+</p>
 
 <p>ちなみに元のコードはcoffeescriptで書いた。
 ラベルをつけるとコンパイルできなかったのではずしてある。</p>
 
-<div><script src='https://gist.github.com/5394731.js?file=select-pref.user.coffee'></script>
+<p><div><script src='https://gist.github.com/5394731.js?file=select-pref.user.coffee'></script>
 <noscript><pre><code>(-&gt;
   d = document
   selects = d.getElementsByTagName 'select'
@@ -68,9 +68,7 @@
             break
   return
 )()</code></pre></noscript></div>
-
-
-
+</p>
 ]]></content>
   </entry>
   
