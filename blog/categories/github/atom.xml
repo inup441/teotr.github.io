@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: github | teotr.github.io]]></title>
+  <link href="http://teotr.github.io/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://teotr.github.io/"/>
+  <updated>2013-04-17T17:29:47+09:00</updated>
+  <id>http://teotr.github.io/</id>
+  <author>
+    <name><![CDATA[teotr]]></name>
+    <email><![CDATA[mail@teotr.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress でブログ始まった]]></title>
+    <link href="http://teotr.github.io/blog/2013/04/17/octopress/"/>
+    <updated>2013-04-17T13:01:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2013/04/17/octopress</id>
+    <content type="html"><![CDATA[<p><a href="http://blog.posterous.com/thanks-from-posterous">Posterous が 4/30 で閉鎖される</a>ということもあり、<a href="http://octopress.org/">Octopress</a> を使ってみることにした。</p>
+
+<p><a href="http://teotr.posterous.com/">teotr's posterous</a> からいくつかの記事を移行した。</p>
+
+<p>Octopress をセットアップするにあたっては次のサイトを参考にさせていただきました。</p>
+
+<ul>
+<li><a href="http://k-mats.github.io/blog/2013/03/04/blog-on-gibhub-2/">Github+Octopressでブログ環境 その他いろいろ - k-mats' memo</a></li>
+<li><a href="http://tokkonopapa.github.io/blog/2011/12/30/octopress-on-github-and-bitbucket/">Octopressのインストールから運用管理まで - T.I.D.</a></li>
+<li><a href="http://www.miukoba.net/blog/2013/01/05/start-octopress/">Octopressはじめました - mimemo</a></li>
+<li><a href="http://www.sankitch.me/blog/2012/05/05/build-octopress-on-github-dropbox/">Octopress + Github Pages + Dropbox でブログを構築 - M-x sankitch-info</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

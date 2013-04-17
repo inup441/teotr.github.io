@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>tabular の使い方メモ - teotr.github.io</title>
+  <title>Octopress でブログ始まった - teotr.github.io</title>
   <meta name="author" content="teotr">
 
   
-  <meta name="description" content="vimではプラグインを利用することによってコードの整形を簡単に行うことができます。 整形のためのプラグインはいくつかあると思いますが、私は tabular というプラグインを利用しています。 ただ、よく利用するわりには基本のコマンドしか使えてなかったので、 &hellip;">
+  <meta name="description" content="Posterous が 4/30 で閉鎖されるということもあり、Octopress を使ってみることにした。 teotr&#8217;s posterous からいくつかの記事を移行した。 Octopress をセットアップするにあたっては次のサイトを参考にさせていただきました。 Github+ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://teotr.github.io/blog/2011/04/15/tabular">
+  <link rel="canonical" href="http://teotr.github.io/blog/2013/04/17/octopress">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="teotr.github.io" type="application/atom+xml">
@@ -66,7 +66,7 @@
   
   <header>
     
-      <h1 class="entry-title">Tabular の使い方メモ</h1>
+      <h1 class="entry-title">Octopress でブログ始まった</h1>
     
     
       <p class="meta">
@@ -82,80 +82,24 @@
   
 
 
-<time datetime="2011-04-15T20:35:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2011</time>
+<time datetime="2013-04-17T13:01:00+09:00" pubdate data-updated="true">Apr 17<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>vimではプラグインを利用することによってコードの整形を簡単に行うことができます。</p>
+<div class="entry-content"><p><a href="http://blog.posterous.com/thanks-from-posterous">Posterous が 4/30 で閉鎖される</a>ということもあり、<a href="http://octopress.org/">Octopress</a> を使ってみることにした。</p>
 
-<p>整形のためのプラグインはいくつかあると思いますが、私は tabular というプラグインを利用しています。</p>
+<p><a href="http://teotr.posterous.com/">teotr&#8217;s posterous</a> からいくつかの記事を移行した。</p>
 
-<p>ただ、よく利用するわりには基本のコマンドしか使えてなかったので、この辺りで使い方をメモしておいてもっと柔軟に整形していこうという趣旨のエントリーです。</p>
-
-<h2>例文</h2>
-
-<pre><code>Some short phrase,some other phrase
-A much longer phrase here,and another long phrase
-</code></pre>
-
-<h2>基本</h2>
-
-<h3>:Tabularize /,</h3>
-
-<p>スラッシュに続けて区切り文字(この場合は「,」)を指定すると、複数行を揃えてくれます。</p>
-
-<pre><code>Some short phrase         , some other phrase
-A much longer phrase here , and another long phrase
-</code></pre>
-
-<h2>オプションを指定する</h2>
-
-<p>区切り文字を基準として、フィールドごとに右寄せ( r )、左寄せ( l )、中央寄せ( c )をすることができます。数字は、次のフィールドまでのスペースの数を指定します。</p>
-
-<h3>:Tabularize /,/r0</h3>
-
-<pre><code>        Some short phrase,      some other phrase
-A much longer phrase here,and another long phrase
-</code></pre>
-
-<h3>:Tabularize /,/l0</h3>
-
-<pre><code>Some short phrase        ,some other phrase
-A much longer phrase here,and another long phrase
-</code></pre>
-
-<h3>:Tabularize /,/l0c1</h3>
-
-<pre><code>Some short phrase        , some other phrase
-A much longer phrase here, and another long phrase
-</code></pre>
-
-<h2>区切り文字の位置を調整する</h2>
-
-<p><code>\zs</code>はヘルプによると</p>
-
-<blockquote><p>\zs   どこにでもマッチして、マッチの開始地点を設定します。
-このアトムの次の文字は、マッチした文字列の 1 文字目です。|/zero-width|</p></blockquote>
-
-<p>とのことです。
-よくわかってないのですが、実際にどうなるかを見るとわかりやすいと思います。</p>
-
-<h3>:Tabularize /,\zs/l1</h3>
-
-<pre><code>Some short phrase,          some other phrase
-A much longer phrase here,  and another long phrase
-</code></pre>
-
-<p>(参考)</p>
+<p>Octopress をセットアップするにあたっては次のサイトを参考にさせていただきました。</p>
 
 <ul>
-<li><a href="https://github.com/godlygeek/tabular" title="godlygeek/tabular - GitHub">godlygeek/tabular - GitHub</a></li>
-<li><a href="http://vimcasts.org/episodes/aligning-text-with-tabular-vim/" title="Aligning text with Tabular.vim">Aligning text with Tabular.vim</a></li>
-<li>:help tabular</li>
-<li>:help \zs</li>
+<li><a href="http://k-mats.github.io/blog/2013/03/04/blog-on-gibhub-2/">Github+Octopressでブログ環境 その他いろいろ - k-mats&#8217; memo</a></li>
+<li><a href="http://tokkonopapa.github.io/blog/2011/12/30/octopress-on-github-and-bitbucket/">Octopressのインストールから運用管理まで - T.I.D.</a></li>
+<li><a href="http://www.miukoba.net/blog/2013/01/05/start-octopress/">Octopressはじめました - mimemo</a></li>
+<li><a href="http://www.sankitch.me/blog/2012/05/05/build-octopress-on-github-dropbox/">Octopress + Github Pages + Dropbox でブログを構築 - M-x sankitch-info</a></li>
 </ul>
 
 </div>
@@ -180,12 +124,12 @@ A much longer phrase here,  and another long phrase
   
 
 
-<time datetime="2011-04-15T20:35:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2011</time>
+<time datetime="2013-04-17T13:01:00+09:00" pubdate data-updated="true">Apr 17<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/vim/'>vim</a>
+    <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
   
 </span>
 
@@ -194,7 +138,7 @@ A much longer phrase here,  and another long phrase
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://teotr.github.io/blog/2011/04/15/tabular/" data-via="teotr" data-counturl="http://teotr.github.io/blog/2011/04/15/tabular/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://teotr.github.io/blog/2013/04/17/octopress/" data-via="teotr" data-counturl="http://teotr.github.io/blog/2013/04/17/octopress/" >Tweet</a>
   
   
   
@@ -205,10 +149,8 @@ A much longer phrase here,  and another long phrase
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2011/04/13/aamaker-vim/" title="Previous Post: お顔☆メーカーを vim スクリプトにしてみた">&laquo; お顔☆メーカーを vim スクリプトにしてみた</a>
+        <a class="basic-alignment left" href="/blog/2011/04/27/select-pref/" title="Previous Post: SELECT の都道府県を自動的に選択する">&laquo; SELECT の都道府県を自動的に選択する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2011/04/19/vimfiler/" title="Next Post: vimfiler の exrename が便利">vimfiler の exrename が便利 &raquo;</a>
       
     </p>
   </footer>
