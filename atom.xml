@@ -4,7 +4,7 @@
   <title><![CDATA[teotr.github.io]]></title>
   <link href="http://teotr.github.io/atom.xml" rel="self"/>
   <link href="http://teotr.github.io/"/>
-  <updated>2013-04-17T17:29:47+09:00</updated>
+  <updated>2013-04-18T18:26:23+09:00</updated>
   <id>http://teotr.github.io/</id>
   <author>
     <name><![CDATA[teotr]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ドメインを取得した]]></title>
+    <link href="http://teotr.github.io/blog/2013/04/18/domain/"/>
+    <updated>2013-04-18T18:20:00+09:00</updated>
+    <id>http://teotr.github.io/blog/2013/04/18/domain</id>
+    <content type="html"><![CDATA[<p>teotr.com というドメインを<a href="http://muumuu-domain.com/">ムームードメイン</a>で取得した。</p>
+
+<p>独自ドメインのメールアドレスが欲しかっただけなので、今のところサイトはない。</p>
+
+<p>本当はGoogle Appsで独自ドメインのメールを使いたかったけど、もう無料じゃ使えないのでOutlook.comを利用することにした。</p>
+
+<ul>
+<li><a href="http://www.tecking.org/archives/3117">【Google Apps（無償版）難民救済企画】Outlook.comで独自ドメインメールを無料運用してみたよ（Gmailへの転送もOK） | 鉄王</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Octopress でブログ始まった]]></title>
